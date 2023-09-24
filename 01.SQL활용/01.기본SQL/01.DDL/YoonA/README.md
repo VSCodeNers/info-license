@@ -16,8 +16,39 @@
 
     (2) DDL 유형
         - CREATE : 데이터베이스 오브젝트 생성
+            - 테이블 정의
+                - CREATE TABLE 문에 의해 생성
+                구문 : CREATE TABLE 테이블_이름
+            - 스키마 정의
+                - 시스템 관리자가 일반 사용자에게 스키마 권한을 주기 위한 스키마를 만들기 위해 사용됨
+                - CREATE SCHEMA 문에 의해 생성
+                구문 : CREATE SCHEMA 스키마_이름 AUTHORIZATION 사용자;
+            - 도메인 정의
+                - CREATE DOMAIN 문에 의해 생성
+                구문 : CREATE DOMAIN 도메인_이름 데이터_타입
+            - 인덱스 정의
+                - 데이터베이스 내의 자료를 효율적으로 검색하기 위해 인덱스를 만듦
+                - CREATE INDEX 문에 의해 생성
+                구문 : CREATE INDEX 인덱스_이름
+
         - ALTER : 데이터베이스 오브젝트 변경
+            - 구문
+                ALTER TABLE 테이블_이름 ADD 속성_이름 데이터_타입 [DEFAULT]; 
+                ALTER TABLE 테이블_이름 ALTER 속성_이름 데이터_타입 [SET DEFAULT];
+                ALTER TABLE 테이블_이름 DROP 속성_이름 데이터_타입 [CASCADE | RESTRICT];
+                
+                - ALTER TABLE ~ ADD : 기존 테이블에 새로운 속성(항목)을 추가
+                - ALTER TABLE ~ ALTER : 기존 테이블의 속성(항목)에 대한 사항을 변경
+                - ALTER TABLE ~ DROP : 기존 테이블에서 속성(항목)을 제거
+
         - DROP : 데이터베이스 오브젝트 삭제 (테이블 전체 삭제)
+            - 구문
+                DROP TABLE 테이블_이름 [CASCADE | RESTRICT];
+                DROP SCHEMA 스키마_이름 [CASCADE | RESTRICT];
+                DROP DOMAIN 도메인_이름 [CASCADE | RESTRICT];
+                DROP VIEW 뷰_이름 [CASCADE | RESTRICT];
+                DROP INDEX 인덱스_이름;
+                DROP CONSTRAINT 제약조건_이름;
         - TRUNCATE : 데이터베이스 오브젝트 내용 삭제 (테이블 구조는 유지됨)
 
 - 제약조건 적용
