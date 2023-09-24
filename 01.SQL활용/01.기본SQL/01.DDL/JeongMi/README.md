@@ -21,15 +21,163 @@ Date: 2023.09.18.월 ~ 2023.09.24.일
 ---
 
 ### 1) 생성: CREATE
+- 테이블 정의
+```
+CREATE TABLE 테이블_이름 (
+  {속성_이름 데이터_타입 [DEFAULT 값] [NOT NULL],}
+  [PRIMARY KEY(속성_이름),]
+  [FOREIGN KEY(속성_이름) REFERENCES 참조테이블(속성_이름)]
+    [ON DELETE CASCADE | SET NULL | SET DEFAULT | NO ACTION]
+    [ON UPDATE CASCADE | SET NULL | SET DEFAULT | NO ACTION],
+  [UNIQUE(속성_이름),]
+  [CONSTRAINT 제약조건_이름 CHECK(속성_이름=범위 값)]
+```
+- 다른 테이블 정보를 이용해 생성
+```
+CREATE TABLE 테이블_이름 AS SELECT문;
+```
 
+- [x] {}: 반복, []: 생략 가능, |: 선택
+- [x] 속성_이름 데이터_타입 [DEFAULT 값] [NOT NULL]: 테이블을 구성할 속성 이름과 데이터 타입 기입, 속성 수만큼 반복
+- [x] PRIMARY KEY(속성_이름): 기본키 속성 지정
+- [x] FOREIGN KEY(속성_이름): 외래키 지정
+- [x] UNIQUE(속성_이름): 대체키 지정. 중복 값이 없도록 함. (모든 속성값이 교유한 값을 가짐)
+- [x] CONSTRAINT 제약조건_이름 CHECK(속성_이름=범위 값): 속성값의 범위 지정
+<br/>
+
+- 스키마 정의: 시스템 관리자가 일반 사용자에게 스키마 권한을 주기 위해
+```
+CREATE SCHEMA 스키마_이름 AUTHORIZATION 사용자;
+```
+<br/>
+
+- 도메인 정의
+```
+CREATE DOMAIN 도메인_이름 데이터_타입
+  [DEFAULT 기본값]
+  [CONSTRAINT 제약조건_이름 CHECK(VALUE IN(범위 값))];
+```
+<br/>
+
+- 인덱스 정의: 자료를 효율적으로 검색하기 위해 생성. 시스템에 의해 자동 관리
+```
+CREATE [UNIQUE] INDEX 인덱스_이름
+  ON 테이블_이름(속성_이름 [ASC | DESC])
+  [CLUSTER];
+```
+- [x] UNIQUE: 중복을 허용하지 않음
+- [x] ON 테이블_이름(속성_이름): 지정된 테이블의 속성으로 인덱스 정의
+- [x] ASC | DESC: 정렬 방법
+- [x] CLUSTER: 인접된 튜플들을 물리적인 그룹으로 묶어 저장
+<br/>
 
 ### 2) 변경: ALTER
+- 속성 추가
+```
+ALTER TABLE 테이블_이름 ADD 속성_이름 데이터_타입 [DEFAULT];
+```
+- 속성 데이터 타입 변경
+```
+ALTER TABLE 테이블_이름 MODIFY 속성_이름 데이터_타입 [DEFAULT];
+```
+- 속성 삭제
+```
+ALTER TABLE 테이블_이름 DROP 속성_이름 [CASCADE | RESTRICT];
+```
+- 테이블 이름 변경
+```
+ALTER TABLE 이전_테이블명 RENAME 새로운_테이블명;
+```
+```
+RENAME TABLE 이전_테이블명 TO 새로운_테이블명;
+```
 
 ### 3) 삭제: DROP, TRUNCATE
+- 테이블 삭제
+```
+DROP TABLE 테이블_이름 [CASCADE | RESTRICT];
+```
+- 스키마 삭제
+```
+DROP SCHEMA 스키마_이름 [CASCADE | RESTRICT];
+```
+- 도메인 삭제
+```
+DROP DOMAIN 도메인_이름 [CASCADE | RESTRICT];
+```
+- 뷰 삭제
+```
+DROP VIEW 뷰_이름 [CASCADE | RESTRICT];
+```
+- 인덱스 삭제
+```
+DROP INDEX 인덱스_이름;
+```
+- 제약조건 삭제
+```
+DROP CONSTRAINT 제약조건_이름;
+```
+- 테이블 내용 삭제
+```
+TRUNCATE TABLE 테이블_이름;
+```
+<br/>
+
+- [x] RESTRICT: 삭제할 요소가 사용(참조) 중이면 삭제가 이루어지지 않음
+- [x] CASCADE: 삭제할 요소가 사용(참조) 중이면, 삭제할 테이블을 참조중엔 다른 테이블에서도 연쇄적으로 같이 삭제됨
+<br/>
 
 ### 4) 데이터 타입
+- CHAR(문자수): 고정길이 문자열
+- VARCHAR(문자수): 가변길이 문자열
+- INT: 정수
+- FLOAT: 실수
+- TIME: 시간
+- DATE: 날짜
 
 ### 5) 제약조건
+- 제약조건 유형
+  - PRIMARY KEY
+    - 테이블의 기본키를 정의
+    - 기본으로 NOT NULL, UNIQUE 제약 포함
+  - FOREIGN KEY
+    - 외래키 정의
+    - 참조 대상을 테이블_이름(속성_이름)으로 명시
+    - 참조 무결성 위배 상활 발생 시, 처리 방법으로 옵션 지정  
+      : NO ACTION, SET DEFAULT, SET NULL, CASCADE, RESTRICT
+  - UNIQUE
+    - 해당 속성은 유일한 값을 가짐
+    - 동일한 값을 가지면 안 되는 항목에 지정
+  - NOT NULL
+    - 테이블 내에서 관련 속성 값은 NULL일 수 없음
+    - 필수 입력 항목
+  - CHECK
+    - 개발자가 정의하는 제약조건
+    - 상황에 따라 다양한 조건 설정 가능
+<br/>
+
+- 제약조건 변경
+  - 제약조건 추가
+    ```
+    ALTER TABLE 테이블_이름
+    ADD [CONSTRAINT 제약조건_이름] 제약조건(속성_이름);
+    ```
+  - 제약조건 삭제
+    ```
+    ALTER TABLE 테이블_이름
+    DROP FOREIGN KEY [제약조건_이름];
+    ```
+  - 제약조건 활성화
+    ```
+    ALTER TABLE 테이블_이름
+    ENABLE CONSTRAINT 제약조건_이름;
+    ```
+  - 제약조건 비활성화
+    ```
+    ALTER TABLE 테이블_이름
+    DISABLE CONSTRAINT 제약조건_이름;
+    ```
+<br/>
 
 ---
 
