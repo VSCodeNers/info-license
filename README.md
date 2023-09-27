@@ -18,8 +18,8 @@ Start: 2022.09.24.일
 ## 01. [SQL 활용](https://github.com/VSCodeNers/info-license/tree/main/01.SQL%ED%99%9C%EC%9A%A9)
 ### 01. [기본 SQL](https://github.com/VSCodeNers/info-license/tree/main/01.SQL%ED%99%9C%EC%9A%A9/01.%EA%B8%B0%EB%B3%B8SQL)
 - [x] 01. [DDL(SQL 정의어)](https://github.com/VSCodeNers/info-license/tree/main/01.SQL%ED%99%9C%EC%9A%A9/01.%EA%B8%B0%EB%B3%B8SQL/01.DDL) - 2023.09.24.일 | 조정미, 허윤아
-- [x] 02. [DML(SQL 조작어)](https://github.com/VSCodeNers/info-license/tree/main/01.SQL%ED%99%9C%EC%9A%A9/01.%EA%B8%B0%EB%B3%B8SQL/02.DML) - 2023.10.01.일 | 허윤아
-- [x] 03. [DCL(SQL 제어어)](https://github.com/VSCodeNers/info-license/tree/main/01.SQL%ED%99%9C%EC%9A%A9/01.%EA%B8%B0%EB%B3%B8SQL/03.DCL) - 2023.10.01.일 | 조정미
+- [x] 02. [DML(SQL 조작어)](https://github.com/VSCodeNers/info-license/tree/main/01.SQL%ED%99%9C%EC%9A%A9/01.%EA%B8%B0%EB%B3%B8SQL/02.DML) - 2023.10.22.일 | 허윤아
+- [x] 03. [DCL(SQL 제어어)](https://github.com/VSCodeNers/info-license/tree/main/01.SQL%ED%99%9C%EC%9A%A9/01.%EA%B8%B0%EB%B3%B8SQL/03.DCL) - 2023.10.22.일 | 조정미
 - [x] 04. 데이터 사전 검색
   
 ### 02. 고급 SQL
